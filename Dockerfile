@@ -24,4 +24,8 @@ RUN addgroup spigot
 RUN chmod -R 0775 ./
 RUN chgrp -R 0775 ./
 
+RUN apk del wget git openjdk${JAVA_VERSION}
+RUN apk add openjdk${JAVA_VERSION}-jre
+RUN rm BuildTools.jar
+
 CMD [ "/opt/startserver.sh" ]

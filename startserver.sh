@@ -5,4 +5,10 @@ maxRam="${2:-4}G"
 
 echo "Starting a minecraft $MC_VERSION server in $PWD"
 
-java -Xms$minRam -Xmx$maxRam -XX:+UseG1GC -jar /opt/spigot/spigot-$MC_VERSION.jar nogui
+if [ -e /opt/spigot/spigot-$MC_VERSION.jar ]; then
+    serverPath="/opt/spigot/spigot-$MC_VERSION.jar"
+else
+    serverPath=`ls /opt/spigot/spigot*.jar | awk '{print $1}'`
+fi
+
+java -Xms$minRam -Xmx$maxRam -XX:+UseG1GC -Dcom.mojang.eula.agree=true -jar $serverPath nogui

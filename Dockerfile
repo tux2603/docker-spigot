@@ -11,7 +11,7 @@ RUN chmod +x /opt/startserver.sh
 # Download dependencies
 RUN echo 'https://dl-cdn.alpinelinux.org/alpine/edge/testing' >>/etc/apk/repositories
 RUN apk update
-RUN apk add wget git openjdk${JAVA_VERSION}
+RUN apk add bash wget git openjdk${JAVA_VERSION}
 
 # Download and build Spigot
 RUN mkdir -p /opt/spigot

@@ -59,6 +59,7 @@ jobs:
         docker login -u tux2603 -p $DOCKER_TOKEN
         MC_VERSION=`echo $VERSIONS | awk '{print $1}'`
         JAVA_VERSION=`echo $VERSIONS | awk '{print $2}'`
-        docker build . --file Dockerfile --tag tux2603/spigot:$MC_VERSION --build-arg MC_VERSION=$MC_VERSION JAVA_VERSION=$JAVA_VERSION
+        echo "Building $MC_VERSION with $JAVA_VERSION"
+        docker build . --file Dockerfile --tag tux2603/spigot:$MC_VERSION --build-arg MC_VERSION=$MC_VERSION --build-arg JAVA_VERSION=$JAVA_VERSION
         docker image push tux2603/spigot:$MC_VERSION
 

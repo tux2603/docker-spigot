@@ -1,6 +1,7 @@
 FROM alpine:3.14
 
 ARG MC_VERSION="1.17"
+ARG JAVA_VERSION="16"
 ENV MC_VERSION=${MC_VERSION}
 
 # Copy in the server starting script
@@ -10,7 +11,7 @@ RUN chmod +x /opt/startserver.sh
 # Download dependencies
 RUN echo 'https://dl-cdn.alpinelinux.org/alpine/edge/testing' >>/etc/apk/repositories
 RUN apk update
-RUN apk add wget git openjdk16-jdk
+RUN apk add wget git openjdk${JAVA_VERSION}-jdk
 
 # Download and build Spigot
 RUN mkdir -p /opt/spigot

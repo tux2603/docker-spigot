@@ -30,10 +30,12 @@ RUN echo 'https://dl-cdn.alpinelinux.org/alpine/edge/testing' >>/etc/apk/reposit
 RUN apk add openjdk${JAVA_VERSION}-jre || apk add openjdk${JAVA_VERSION}-jre-headless
 
 # Copy in the server starting script
-COPY startserver.sh /opt/startserver.sh
 COPY --from=build /opt/spigot /opt/spigot
+COPY startserver.sh /opt/startserver.sh
 
 RUN chmod +x /opt/startserver.sh
+RUN mkdir server
+WORKDIR /server
 
 
 CMD [ "/opt/startserver.sh" ]

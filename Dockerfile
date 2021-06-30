@@ -34,7 +34,7 @@ COPY --from=build /opt/spigot /opt/spigot
 COPY startserver.sh /opt/startserver.sh
 
 RUN chmod +x /opt/startserver.sh
-RUN mkdir server
+RUN mkdir /server && mkdir /server/plugins 
 WORKDIR /server
 
 

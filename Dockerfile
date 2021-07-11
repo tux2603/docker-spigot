@@ -18,8 +18,8 @@ RUN mkdir -p /opt/spigot
 WORKDIR /opt/spigot
 RUN wget https://hub.spigotmc.org/jenkins/job/BuildTools/lastSuccessfulBuild/artifact/target/BuildTools.jar
 RUN git config --global core.autocrlf input
-RUN free -h
-RUN java -Xmx768M -jar BuildTools.jar 
+RUN free -m
+RUN java -Xmx768M -jar BuildTools.jar --rev ${MC_VERSION}
 
 FROM alpine:edge
 

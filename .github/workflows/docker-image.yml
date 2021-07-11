@@ -44,9 +44,6 @@ jobs:
           - "1.17 16"
           - "1.17.1 16"
           - "latest 16"
-        platforms:
-          - "linux/amd64"
-          - "linux/arm64"
 
 
     steps:
@@ -63,7 +60,7 @@ jobs:
       env:
         DOCKER_TOKEN: ${{ secrets.DOCKER_TOKEN }}
         VERSIONS: ${{ matrix.versions }}
-        PLATFORM: ${{ matrix.platforms }}
+        PLATFORM: linux/amd64
       run: |
         docker login -u tux2603 -p $DOCKER_TOKEN
         MC_VERSION=`echo $VERSIONS | awk '{print $1}'`

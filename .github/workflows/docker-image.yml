@@ -44,19 +44,35 @@ jobs:
           - "1.17 16"
           - "1.17.1 16"
           - "latest 16"
+        platform:
+          - "linux/amd64"
+          - "linux/arm/v7"
+          - "linux/arm64/v8"
+          - "linux/ppc64le"
+          - "linux/s390x"
 
 
     steps:
-    - uses: actions/checkout@v2
+    - name: Checkout the code
+      uses: actions/checkout@v2
+
+    - name: Set up QEMU
+      uses: docker/setup-qemu-action@v1
+
+    - name: Set up Docker Buildx
+      uses: docker/setup-buildx-action@v1 
+
     - name: Build and push a spigot image
       env:
         DOCKER_TOKEN: ${{ secrets.DOCKER_TOKEN }}
         VERSIONS: ${{ matrix.versions }}
+        PLATFORM: ${{ matrix.platform }}
       run: |
         docker login -u tux2603 -p $DOCKER_TOKEN
         MC_VERSION=`echo $VERSIONS | awk '{print $1}'`
         JAVA_VERSION=`echo $VERSIONS | awk '{print $2}'`
         echo "Building $MC_VERSION with $JAVA_VERSION"
-        docker build . --file Dockerfile --tag tux2603/spigot:$MC_VERSION --build-arg MC_VERSION=$MC_VERSION --build-arg JAVA_VERSION=$JAVA_VERSION
+        docker buildx build . --file Dockerfile --platform $PLATFORM --tag tux2603/spigot:$MC_VERSION --build-arg MC_VERSION=$MC_VERSION --build-arg JAVA_VERSION=$JAVA_VERSION
         docker image push tux2603/spigot:$MC_VERSION
+
 

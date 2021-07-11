@@ -64,9 +64,9 @@ jobs:
         docker login -u tux2603 -p $DOCKER_TOKEN
         MC_VERSION=`echo $VERSIONS | awk '{print $1}'`
         JAVA_VERSION=`echo $VERSIONS | awk '{print $2}'`
-        echo "Building $MC_VERSION with $JAVA_VERSION for platform $PLATFORM"
-        docker buildx create --name builder --platform $PLATFORM
+        echo "Building $MC_VERSION with $JAVA_VERSION for platform $PLATFORMS"
+        docker buildx create --name builder --platform $PLATFORMS
         docker buildx use builder
-        docker buildx build . --memory=2g --file Dockerfile --platform $PLATFORM --tag tux2603/spigot:$MC_VERSION --push --build-arg MC_VERSION=$MC_VERSION --build-arg JAVA_VERSION=$JAVA_VERSION
+        docker buildx build . --memory=2g --file Dockerfile --platform $PLATFORMS --tag tux2603/spigot:$MC_VERSION --push --build-arg MC_VERSION=$MC_VERSION --build-arg JAVA_VERSION=$JAVA_VERSION
 
 
